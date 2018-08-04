@@ -18,6 +18,24 @@ function scriptEcho() {
 
 scriptEcho "Building Chrome $1..."
 
-scriptEcho "Cloning depot_tools..."
+scriptEcho "Cloning and setting up depot_tools..."
 git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
+export PATH="$PATH:$(realpath depot_tools)"
 
+scriptEcho "Getting core chromium source code..."
+mkdir chromium
+pushd chromium
+fetch --no-history --nohooks android
+pushd src
+
+scriptEcho "Installing additional build dependencies..."
+build/install-build-deps-android.sh
+
+scriptEcho "Running chromium hooks..."
+gclient runhooks
+
+scriptEcho "Creating build configuration..."
+gn gen --args='target_os="android" is_debug=false dcheck_always_on=false is_component_build=false symbol_level=0 enable_nacl=true remove_webcore_debug_symbols=true' out/Default
+
+scriptEcho "Building chromium..."
+ninja -C out/Default chrome_public_apk
