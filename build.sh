@@ -11,3 +11,5 @@ set -o pipefail
 
 # Print all commands executed
 set -o xtrace
+
+echo "Building Chrome $1..."
