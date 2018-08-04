@@ -18,6 +18,11 @@ function scriptEcho() {
 
 scriptEcho "Building Chrome $1..."
 
+scriptEcho "Preconfiguring container - Updating APT sources..."
+sudo apt-get update
+scriptEcho "Preconfiguring container - Installing required debian packages..."
+sudo apt-get install realpath
+
 scriptEcho "Cloning and setting up depot_tools..."
 git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
 export PATH="$PATH:$(realpath depot_tools)"
