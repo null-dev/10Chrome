@@ -41,7 +41,7 @@ scriptEcho "Running chromium hooks..."
 gclient runhooks
 
 scriptEcho "Creating build configuration..."
-gn gen --args='target_os="android" is_debug=false dcheck_always_on=false is_component_build=false symbol_level=0 enable_nacl=true remove_webcore_debug_symbols=true' out/Default
+gn gen --args='target_os="android" is_debug=false dcheck_always_on=false is_component_build=false symbol_level=0 enable_nacl=false remove_webcore_debug_symbols=true use_jumbo_build=true' out/Default
 
 scriptEcho "Building chromium..."
 ninja -C out/Default chrome_public_apk
