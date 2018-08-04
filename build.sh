@@ -12,4 +12,12 @@ set -o pipefail
 # Print all commands executed
 set -o xtrace
 
-echo "Building Chrome $1..."
+function scriptEcho() {
+    echo ">>> $1"
+}
+
+scriptEcho "Building Chrome $1..."
+
+scriptEcho "Cloning depot_tools..."
+git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
+
